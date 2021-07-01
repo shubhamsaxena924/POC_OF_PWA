@@ -1,11 +1,11 @@
 const cacheName = "cache-v2"; //you may give any name
 const resourcesToPrecache = [
   "/",
-  "index.html",
-  "src/index.js",
-  "src/index.css",
-  "images/logo192.png",
-  "images/logo512.png",
+  "./index.html",
+  "./src/index.js",
+  "./src/index.css",
+  "./images/logo192.png",
+  "./images/logo512.png",
 ];
 
 //self here is sw object
