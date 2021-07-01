@@ -33,9 +33,6 @@ function subscribeUser() {
       reg.pushManager
         .subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(
-            "AAAAXd8MjGs:APA91bEcG_h2Lkgmlxp7tLMwQ0WiId87fjG6RhP0nmMDvfElC4c7qGeIJ-CfvPDgO7zA7K-fxhn57vtBQpoTkvV_OS8JnMTfd79O7e6CejNuDSNu375_NNx0297lGFHeg-2c5mGcainx"
-          ),
         })
         .then(function (sub) {
           console.log("Endpoint URL: ", sub.endpoint);
@@ -64,9 +61,6 @@ function displayNotification() {
   }
 }
 
-import firebase from "firebase/app";
-import "firebase-messaging";
-
 var firebaseConfig = {
   apiKey: "AIzaSyDafD87TQqvpaxC9VfLaT8h9YqXfwpjrsc",
   authDomain: "poc-of-pwa.firebaseapp.com",
@@ -77,17 +71,12 @@ var firebaseConfig = {
   measurementId: "G-VJB3JPHG2V",
 };
 firebase.initializeApp(firebaseConfig);
-
 const messaging = firebase.messaging();
 messaging.getToken({
   vapidKey:
-    "BHuZbsoRnad69LKQkv1oirFLcvn15cuFCtFRYaDmlcl2KEhdljYnTvOaF_lhzL77DonGvkhsIRQk0K3kKasAQT8",
+    "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
 });
-messaging
-  .requestPermission()
-  .then(() => {
-    console.log("Have Permission");
-  })
-  .catch(() => {
-    console.log("Error Occured");
-  });
+console.log(messaging);
+messaging.onMessage((payload) => {
+  console.log("Message received. ", payload);
+});

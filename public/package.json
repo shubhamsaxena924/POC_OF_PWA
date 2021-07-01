@@ -1,0 +1,14 @@
+{
+  "name": "poc_of_pwa",
+  "version": "1.0.0",
+  "description": "This is a demo POC of PWA",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shubham Saxena",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^8.6.8"
+  }
+}

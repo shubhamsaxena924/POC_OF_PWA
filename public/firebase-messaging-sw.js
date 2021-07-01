@@ -1,5 +1,5 @@
-import firebase from "firebase/app";
-import "firebase-messaging";
+importScripts("https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js");
 
 var firebaseConfig = {
   apiKey: "AIzaSyDafD87TQqvpaxC9VfLaT8h9YqXfwpjrsc",
@@ -13,15 +13,3 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
-messaging.getToken({
-  vapidKey:
-    "BHuZbsoRnad69LKQkv1oirFLcvn15cuFCtFRYaDmlcl2KEhdljYnTvOaF_lhzL77DonGvkhsIRQk0K3kKasAQT8",
-});
-messaging
-  .requestPermission()
-  .then(() => {
-    console.log("Have Permission");
-  })
-  .catch(() => {
-    console.log("Error Occured");
-  });
