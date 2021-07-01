@@ -26,21 +26,6 @@ if ("serviceWorker" in navigator) {
   ("Service Worker not supported!");
 }
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("../firebase-messaging-sw.js")
-    .then((registration) => {
-      console.log("SW Registered!");
-      console.log(registration);
-    })
-    .catch((error) => {
-      console.log("Firebase SW Registration failed!");
-      console.log(error);
-    });
-} else {
-  ("Service Worker not supported!");
-}
-
 //Subscribe function
 function subscribeUser() {
   if ("serviceWorker" in navigator) {
@@ -87,10 +72,29 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
-messaging.getToken({
-  vapidKey:
-    "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
-});
+// messaging.getToken({
+//   vapidKey:
+//     "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
+// });
+// console.log(messaging);
+// messaging.onMessage((payload) => {
+//   console.log("Message received. ", payload);
+// });
+var currentToken;
+messaging
+  .getToken({
+    vapidKey:
+      "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
+  })
+  .then((result) => {
+    if (result) {
+      console.log(result);
+      currentToken = result;
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 console.log(messaging);
 messaging.onMessage((payload) => {
   console.log("Message received. ", payload);
