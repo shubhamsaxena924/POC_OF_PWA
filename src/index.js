@@ -26,6 +26,21 @@ if ("serviceWorker" in navigator) {
   ("Service Worker not supported!");
 }
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("../firebase-messaging-sw.js")
+    .then((registration) => {
+      console.log("SW Registered!");
+      console.log(registration);
+    })
+    .catch((error) => {
+      console.log("Firebase SW Registration failed!");
+      console.log(error);
+    });
+} else {
+  ("Service Worker not supported!");
+}
+
 //Subscribe function
 function subscribeUser() {
   if ("serviceWorker" in navigator) {
