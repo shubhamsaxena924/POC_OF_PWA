@@ -7,8 +7,8 @@ var firebaseConfig = {
   projectId: "poc-of-pwa",
   storageBucket: "poc-of-pwa.appspot.com",
   messagingSenderId: "403174100075",
-  appId: "1:403174100075:web:167c5a6053591d7803f52e",
-  measurementId: "G-VJB3JPHG2V",
+  appId: "1:403174100075:web:1a35e8fe6db3650c03f52e",
+  measurementId: "G-VNM9F0EFDH",
 };
 firebase.initializeApp(firebaseConfig);
 
