@@ -1,0 +1,37 @@
+{
+  "name": "POC OF PWA",
+  "short_name": "POC OF PWA",
+  "start_url": ".",
+  "background_color": "#6dcdb1",
+  "theme_color": "#009578",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/logo250.png",
+      "sizes": "250x250",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo500.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo750.png",
+      "sizes": "750x750",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "gcm_sender_id": "403174100075"
+}
