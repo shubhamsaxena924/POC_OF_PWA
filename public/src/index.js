@@ -4,26 +4,13 @@ if ("serviceWorker" in navigator) {
     .then((registration) => {
       console.log("SW Registered!");
       console.log(registration);
-
-      //For push subscription
-      // registration.pushManager.getSubscription().then(function (sub) {
-      //   if (sub === null) {
-      //     // Update UI to ask user to register for Push
-      //     console.log("Not subscribed to push service!");
-      //     subscribeUser();
-      //   } else {
-      //     // We have a subscription, update the database
-      //     console.log("Subscription object: ", sub);
-      //   }
-      // });
-      //Till here
     })
     .catch((error) => {
       console.log("SW Registration failed!");
       console.log(error);
     });
 } else {
-  ("Service Worker not supported!");
+  console.log("Service Worker not supported!");
 }
 
 //Subscribe function
@@ -48,44 +35,30 @@ function subscribeUser() {
   }
 }
 
-// Notification.requestPermission((status) => {
-//   console.log("notification permission status:", status);
-// });
-
-function displayNotification() {
+function displayNotification(e) {
   console.log("called notification");
   if (Notification.permission === "granted") {
     navigator.serviceWorker.getRegistration().then((reg) => {
-      reg.showNotification("Hello World!");
+      reg.showNotification("Hello World! This is website notification!");
     });
   }
 }
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDafD87TQqvpaxC9VfLaT8h9YqXfwpjrsc",
-  authDomain: "poc-of-pwa.firebaseapp.com",
-  projectId: "poc-of-pwa",
-  storageBucket: "poc-of-pwa.appspot.com",
-  messagingSenderId: "403174100075",
-  appId: "1:403174100075:web:1a35e8fe6db3650c03f52e",
-  measurementId: "G-VNM9F0EFDH",
+  apiKey: "AIzaSyBT5YwAOSLITxfvA5csCEavacoKOK6hlSs",
+  authDomain: "poc-of-pwa2.firebaseapp.com",
+  projectId: "poc-of-pwa2",
+  storageBucket: "poc-of-pwa2.appspot.com",
+  messagingSenderId: "984273343780",
+  appId: "1:984273343780:web:15d1b2c5433f911737cfb1",
+  measurementId: "G-J3H1EDK56E",
 };
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
-// messaging.getToken({
-//   vapidKey:
-//     "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
-// });
-// console.log(messaging);
-// messaging.onMessage((payload) => {
-//   console.log("Message received. ", payload);
-// });
+
 var currentToken;
 messaging
-  .getToken({
-    vapidKey:
-      "BC93BDADTY26RbvAEvGuqxXJmi_gbqEmFDvg054aXCyZ0eJlyXDvj9Od15SwT3iiA1sg14QHFmmhr5rsmmmQjRA",
-  })
+  .getToken()
   .then((result) => {
     if (result) {
       console.log(result);
@@ -96,6 +69,37 @@ messaging
     console.log(err);
   });
 console.log(messaging);
+
+//foreground messaging
 messaging.onMessage((payload) => {
   console.log("Message received. ", payload);
+  var body;
+
+  if (payload.notification) {
+    body = payload.notification.body;
+  } else {
+    body = "Push message no payload";
+  }
+  var options = {
+    body: body,
+    icon: "../images/logo192.png",
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: "2",
+    },
+    actions: [
+      {
+        action: "explore",
+        title: "Explore this new world",
+        icon: "",
+      },
+      { action: "close", title: "Close", icon: "" },
+    ],
+  };
+  if (Notification.permission === "granted") {
+    navigator.serviceWorker.getRegistration().then((reg) => {
+      reg.showNotification(payload.notification.title, options);
+    });
+  }
 });
