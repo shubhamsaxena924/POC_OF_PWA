@@ -58,7 +58,10 @@ const messaging = firebase.messaging();
 
 var currentToken;
 messaging
-  .getToken()
+  .getToken({
+    vapidKey:
+      "BPUyrhiJlWNpJU_eJLMl9LBWBX5tMXiR1ezCecG5QFw0PR3v1ElIcw20iqfT_x7wmpGIh2paCBAcYXQL9FRFH1k",
+  })
   .then((result) => {
     if (result) {
       console.log(result);
