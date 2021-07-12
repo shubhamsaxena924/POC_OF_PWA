@@ -1,3 +1,4 @@
+// Service Worker Registration
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("../sw.js")
@@ -13,7 +14,7 @@ if ("serviceWorker" in navigator) {
   console.log("Service Worker not supported!");
 }
 
-//Subscribe function
+//Subscribe function (not needed in firebase)
 function subscribeUser() {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.ready.then(function (reg) {
@@ -35,6 +36,7 @@ function subscribeUser() {
   }
 }
 
+// Static notification display
 function displayNotification(e) {
   console.log("called notification");
   if (Notification.permission === "granted") {
@@ -44,6 +46,7 @@ function displayNotification(e) {
   }
 }
 
+// firebase config
 var firebaseConfig = {
   apiKey: "AIzaSyBT5YwAOSLITxfvA5csCEavacoKOK6hlSs",
   authDomain: "poc-of-pwa2.firebaseapp.com",
@@ -56,6 +59,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
+// get FCM token from firebase
 var currentToken;
 messaging
   .getToken({
@@ -90,6 +94,7 @@ messaging.onMessage((payload) => {
     data: {
       dateOfArrival: Date.now(),
       primaryKey: "2",
+      link: payload.data.link,
     },
     actions: [
       {
