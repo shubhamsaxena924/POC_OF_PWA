@@ -111,3 +111,6 @@ messaging.onMessage((payload) => {
     });
   }
 });
+
+//firebase hosting:channel:deploy this-is-preview
+//firebase deploy --only hosting
