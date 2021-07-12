@@ -51,31 +51,42 @@ self.addEventListener("fetch", (event) => {
 //This is known as cache-first methodology.
 
 //Responding to push event
-self.addEventListener("push", function (e) {
-  var body;
+// self.addEventListener("push", function (e) {
+//   var body;
 
-  if (e.data) {
-    body = e.data.text();
-  } else {
-    body = "Push message no payload";
-  }
+//   if (e.data) {
+//     body = e.data.text();
+//   } else {
+//     body = "Push message no payload";
+//   }
 
-  var options = {
-    body: body,
-    icon: "",
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: "2",
-    },
-    actions: [
-      {
-        action: "explore",
-        title: "Explore this new world",
-        icon: "",
-      },
-      { action: "close", title: "Close", icon: "" },
-    ],
-  };
-  e.waitUntil(self.registration.showNotification("Hello world!", options));
+//   var options = {
+//     body: body,
+//     icon: "",
+//     vibrate: [100, 50, 100],
+//     data: {
+//       dateOfArrival: Date.now(),
+//       primaryKey: "2",
+//     },
+//     actions: [
+//       {
+//         action: "explore",
+//         title: "Explore this new world",
+//         icon: "",
+//       },
+//       { action: "close", title: "Close", icon: "" },
+//     ],
+//   };
+//   e.waitUntil(self.registration.showNotification("Hello world!", options));
+// });
+
+self.addEventListener("notificationclose", function (e) {
+  var notification = e.notification;
+  var primaryKey = notification.data.primaryKey;
+
+  console.log("Closed notification: " + primaryKey);
 });
+
+self.onnotificationclose = (e) => {
+  console.log("Notification closed: ", e.notification.data.primaryKey);
+};
