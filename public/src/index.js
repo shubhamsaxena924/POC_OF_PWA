@@ -112,5 +112,5 @@ messaging.onMessage((payload) => {
   }
 });
 
-//firebase hosting:channel:deploy this-is-preview
+//firebase hosting:channel:deploy preview-name
 //firebase deploy --only hosting
