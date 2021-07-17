@@ -46,6 +46,16 @@ function displayNotification(e) {
   }
 }
 
+//function to copy token
+function copy() {
+  var copyText = document.getElementById("registrationToken");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+}
+
 // firebase config
 var firebaseConfig = {
   apiKey: "AIzaSyBT5YwAOSLITxfvA5csCEavacoKOK6hlSs",
@@ -70,6 +80,9 @@ messaging
     if (result) {
       console.log(result);
       currentToken = result;
+      document
+        .getElementById("registrationToken")
+        .setAttribute("value", currentToken);
     }
   })
   .catch((err) => {
@@ -80,34 +93,45 @@ console.log(messaging);
 //foreground messaging
 messaging.onMessage((payload) => {
   console.log("Message received. ", payload);
-  var body;
+  var body = "";
+  var title = "";
+  var image = "";
+  var url = "index.html";
+  var action = [{ action: "close", title: "Close" }];
 
+  if (payload.data) {
+    title = payload.data.dataTitle;
+    body = payload.data.dataBody;
+    image = payload.data.dataImage;
+    if (payload.data.url != "") url = payload.data.url;
+  }
   if (payload.notification) {
+    if (payload.notification.title) {
+      title = payload.notification.title;
+    }
     body = payload.notification.body;
-  } else {
-    body = "Push message no payload";
+    image = payload.notification.image;
+  }
+  if (url != "index.html") {
+    action = [
+      { action: "open", title: "Open" },
+      { action: "close", title: "Close" },
+    ];
   }
   var options = {
     body: body,
-    icon: "../images/logo192.png",
+    icon: image,
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: "2",
-      link: payload.data.link,
+      url: url,
     },
-    actions: [
-      {
-        action: "explore",
-        title: "Explore this new world",
-        icon: "",
-      },
-      { action: "close", title: "Close", icon: "" },
-    ],
+    actions: action,
   };
+
   if (Notification.permission === "granted") {
     navigator.serviceWorker.getRegistration().then((reg) => {
-      reg.showNotification(payload.notification.title, options);
+      reg.showNotification(title, options);
     });
   }
 });

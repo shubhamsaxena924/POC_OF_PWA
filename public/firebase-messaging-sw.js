@@ -15,49 +15,59 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-//Background Messaging handler (For data messages, Firebase itself shows a notification for notification message)
+// Background Messaging handler (For data messages, Firebase itself shows a notification for notification message)
 messaging.onBackgroundMessage((payload) => {
   console.log(
     "[firebase-messaging-sw.js] Received background message ",
     payload
   );
   // Customize notification here
-  var body;
+  var body = "";
+  var title = "No Title";
+  var image = "";
+  var url = "index.html";
+  var action = [{ action: "close", title: "Close" }];
+
+  if (payload.data) {
+    title = payload.data.dataTitle;
+    body = payload.data.dataBody;
+    image = payload.data.dataImage;
+    if (payload.data.url != "") url = payload.data.url;
+  }
 
   if (payload.notification) {
+    if (payload.notification.title) {
+      title = payload.notification.title;
+    }
     body = payload.notification.body;
-  } else {
-    body = "Push message no payload";
+    image = payload.notification.image;
   }
+  if (url != "") {
+    action = [
+      { action: "open", title: "Open" },
+      { action: "close", title: "Close" },
+    ];
+  }
+
   var options = {
     body: body,
-    icon: "",
+    icon: image,
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: "2",
-      link: payload.data.link,
+      url: url,
     },
-    actions: [
-      {
-        action: "explore",
-        title: "Explore this new world",
-        icon: "",
-      },
-      { action: "close", title: "Close", icon: "" },
-    ],
+    actions: action,
   };
   if (Notification.permission === "granted") {
-    self.registration.showNotification(payload.notification.title, options);
-    var targetLink = payload.data.link;
-    console.log(targetLink);
+    self.registration.showNotification(title, options);
+    console.log(url);
   }
 });
 
 //Notification click handler for background messaging
 self.addEventListener("notificationclick", function (e) {
   var notification = e.notification;
-  // var primaryKey = notification.data.primaryKey;
   var action = e.action;
 
   if (action === "close") {
@@ -66,7 +76,7 @@ self.addEventListener("notificationclick", function (e) {
   } else {
     console.log(e);
     console.log(notification);
-    clients.openWindow(notification.data.link);
+    clients.openWindow(notification.data.url);
     notification.close();
   }
 });

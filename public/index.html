@@ -12,25 +12,38 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
     <script src="./src/index.js"></script>
   </head>
-  <body
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
-      margin: 100px;
-      flex-wrap: wrap;
-    "
-  >
-    <div class="line">
-      Hello, press the buttons below to get a push notification!
-    </div>
-    <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap">
-      <button class="button" onclick="displayNotification()">
-        Notification (Static)
-      </button>
-      <!-- <button class="button">Notification (Server-Side)</button> -->
+  <body>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        margin: 100px;
+        flex-wrap: wrap;
+      "
+    >
+      <div class="line">
+        Hello, press the buttons below to get a push notification!
+      </div>
+      <div
+        style="display: flex; justify-content: space-evenly; flex-wrap: wrap"
+      >
+        <button class="button" onclick="displayNotification()">
+          Notification (Static)
+        </button>
+        <!-- <button class="button">Notification (Server-Side)</button> -->
+      </div>
+      <br /><br />
+      <div class="line">Your Registration Token:</div>
+      <input
+        type="text"
+        id="registrationToken"
+        style="text-align: center; width: 90%"
+        value="Loading Token..."
+      />
+      <button class="button" onclick="copy()">Copy Token</button>
     </div>
   </body>
 </html>

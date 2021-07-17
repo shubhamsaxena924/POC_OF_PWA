@@ -84,7 +84,6 @@ self.addEventListener("push", function (e) {
 //handler when a notification is clicked
 self.addEventListener("notificationclick", function (e) {
   var notification = e.notification;
-  // var primaryKey = notification.data.primaryKey;
   var action = e.action;
 
   if (action === "close") {
@@ -93,7 +92,7 @@ self.addEventListener("notificationclick", function (e) {
   } else {
     console.log(e);
     console.log(notification);
-    clients.openWindow(notification.data.link);
+    clients.openWindow(notification.data.url);
     notification.close();
   }
 });

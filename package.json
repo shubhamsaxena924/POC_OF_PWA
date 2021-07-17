@@ -9,6 +9,8 @@
   "author": "Shubham Saxena",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^8.6.8"
+    "express": "^4.17.1",
+    "firebase": "^8.6.8",
+    "firebase-admin": "^9.10.0"
   }
 }

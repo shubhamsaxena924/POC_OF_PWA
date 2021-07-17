@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compose Message</title>
+  </head>
+  <body>
+    <h1>Compose a message</h1>
+    <form action="/sendmessage" method="POST">
+      <!-- Type of message -->
+      <fieldset>
+        <legend>Type Of Message*</legend>
+        <input
+          type="radio"
+          id="notif"
+          name="message_type"
+          value="Notification Message"
+        />
+        <label for="notif">Notification Message Only</label><br />
+
+        <input
+          type="radio"
+          id="data"
+          name="message_type"
+          value="Data Message"
+        />
+        <label for="data">Data Message Only</label>
+      </fieldset>
+      <!-- Notification message -->
+      <fieldset>
+        <legend>Notification Message</legend>
+        <p style="color: red">
+          Note: Fill this section when choosing notification message
+        </p>
+        <label for="title">Title*</label>
+        <input type="text" id="title" name="title" /><br /><br />
+        <label for="body">Body</label>
+        <input type="text" id="body" name="body" /><br /><br />
+        <label for="image">Image URL</label>
+        <input type="url" id="image" name="image" /><br /><br />
+        <!-- <label for="link">FCM Link</label>
+        <input type="url" id="link" /> -->
+      </fieldset>
+      <!-- data message -->
+      <fieldset>
+        <legend>Data Message</legend>
+        <p style="color: red">
+          Note: Fill this section when choosing data message
+        </p>
+        <label for="dataTitle">Data Title</label>
+        <input type="text" id="dataTitle" name="dataTitle" /><br /><br />
+        <label for="dataBody">Data Body</label>
+        <input type="text" id="dataBody" name="dataBody" /><br /><br />
+        <label for="dataImage">Data Image URL</label>
+        <input type="url" id="dataImage" name="dataImage" /><br /><br />
+        <label for="dataLink">URL To Open</label>
+        <input type="url" id="dataLink" name="dataLink" />
+      </fieldset>
+      <br />
+      <fieldset>
+        <legend>FCM Token (Target)*</legend>
+        <input
+          type="text"
+          id="registrationToken"
+          name="registrationToken"
+          style="width: 90%; margin: 1rem"
+          required
+        />
+      </fieldset>
+      <br />
+      <input type="submit" value="Send Message" />
+    </form>
+  </body>
+</html>
